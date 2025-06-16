@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", // Mantén ESNext para compatibilidad moderna
+    "module": "CommonJS", // Cambia a CommonJS para evitar problemas con ts-node
+    "moduleResolution": "node", // Usa resolución de módulos estilo Node.js
+    "esModuleInterop": true, // Permite interoperabilidad con módulos ES
+    "resolveJsonModule": true, // Habilita la importación de JSON
+    "outDir": "./dist", // Directorio de salida para compilación
+    "rootDir": "./src", // Directorio raíz del código fuente
+    "strict": true, // Habilita comprobaciones estrictas de TypeScript
+    "skipLibCheck": true, // Omite comprobaciones de tipos en bibliotecas
+    "forceConsistentCasingInFileNames": true // Fuerza consistencia en nombres de archivos
+  },
+  "include": ["src/**/*"], // Incluye todos los archivos en src/
+  "exclude": ["node_modules", "dist"] // Excluye node_modules y dist
+}
