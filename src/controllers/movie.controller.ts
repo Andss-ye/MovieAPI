@@ -11,13 +11,15 @@ export const createMovie = async (req: Request, res: Response, next: NextFunctio
         return next(createError(400, "Title, releaseDate and at least one categoryId are required"));
     }
 
-    if (await movieService.getMovieByTitle(title)) {
+    const movieFound = await movieService.getMovieByTitle(title)
+
+    if (movieFound.length > 0) {
         return next(createError(409, 'the movie already exists'))
     }
 
     const movie = await movieService.createMovie({
         title,
-        releaseDate: new Date(releaseDate),
+        releaseDate,
         categoryIds
     });
 
@@ -52,5 +54,32 @@ export const markMovieAsWatched = async (req: Request, res: Response, next: Next
             return next(createError(409, error.message));
         }
         next(error);
+    }
+};
+
+export const getMovies = async (req: Request, res: Response) => {
+    try {
+        const { 
+            title, 
+            categoryId, 
+            page = '1', 
+            limit = '10' 
+        } = req.query;
+
+        const filters = {
+            title: title as string | undefined,
+            categoryId: categoryId ? Number(categoryId) : undefined,
+            page: Number(page),
+            limit: Number(limit)
+        };
+
+        const result = await movieService.getMoviesList(filters);
+        res.json(result);
+    } catch (error) {
+        console.error('Error getting movies:', error);
+        res.status(500).json({ 
+            status: 'error',
+            message: 'Error al obtener las películas' 
+        });
     }
 };

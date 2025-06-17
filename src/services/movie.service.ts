@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { MovieFilters } from '../interfaces/MovieFilters';
 
 const prisma = new PrismaClient();
 
@@ -132,4 +133,71 @@ export const markMovieAsWatched = async (userId: number, movieId: number) => {
     });
 
     return viewedMovie;
+};
+
+export const getMoviesList = async (filters: MovieFilters) => {
+    const {
+        title,
+        categoryId,
+        page = 1,
+        limit = 10
+    } = filters;
+
+    // el where es basado en los filtros traidos del req.body
+    const where: any = {};
+
+    if (title) {
+        where.title = {
+            contains: title,
+            mode: 'insensitive'
+        };
+    }
+
+    if (categoryId) {
+        where.categories = {
+            some: {
+                categoryId: categoryId
+            }
+        };
+    }
+
+    // Calcular el skip para la paginación
+    const skip = (page - 1) * limit;
+
+    // Obtener el total de películas que coinciden con los filtros
+    const total = await prisma.movie.count({
+        where
+    });
+
+    // peliculas con paginas y ordenamiento desc
+    const movies = await prisma.movie.findMany({
+        where,
+        include: {
+            categories: {
+                include: {
+                    category: true
+                }
+            }
+        },
+        orderBy: {
+            releaseDate: 'desc'
+        },
+        skip,
+        take: limit
+    });
+
+    // total de paginas disponibles
+    const totalPages = Math.ceil(total / limit);
+
+    return {
+        movies,
+        pagination: {
+            total,
+            totalPages,
+            currentPage: page,
+            limit,
+            hasNextPage: page < totalPages,
+            hasPreviousPage: page > 1
+        }
+    };
 };
