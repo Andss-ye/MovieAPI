@@ -80,3 +80,56 @@ export const getNewMovies = async () => {
     });
     return movies;
 }
+
+export const markMovieAsWatched = async (userId: number, movieId: number) => {
+    // Encontrar pelicula
+    const movie = await prisma.movie.findUnique({
+        where: { id: movieId }
+    });
+
+    if (!movie) {
+        throw new Error('Movie not found');
+    }
+
+    // Encontrar usuario
+    const user = await prisma.user.findUnique({
+        where: { id: userId }
+    });
+
+    if (!user) {
+        throw new Error('User not found');
+    }
+
+    // Verificar si ya existe el registro
+    const existingView = await prisma.viewedMovie.findFirst({
+        where: {
+            userId,
+            movieId
+        }
+    });
+
+    if (existingView) {
+        throw new Error('Movie already marked as watched by this user');
+    }
+
+    // Crear el registro de movie vista
+    const viewedMovie = await prisma.viewedMovie.create({
+        data: {
+            userId,
+            movieId
+        },
+        include: {
+            movie: {
+                include: {
+                    categories: {
+                        include: {
+                            category: true
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    return viewedMovie;
+};
