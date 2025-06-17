@@ -51,4 +51,6 @@ model ViewedMovie {
   movie    Movie    @relation(fields: [movieId], references: [id])
   movieId  Int
   viewedAt DateTime @default(now())
+
+  @@unique([userId, movieId])
 }
