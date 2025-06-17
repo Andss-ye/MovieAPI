@@ -63,7 +63,7 @@ export const getMovies = async (req: Request, res: Response) => {
             title, 
             categoryId, 
             page = '1', 
-            limit = '10' 
+            limit = '5' 
         } = req.query;
 
         const filters = {
