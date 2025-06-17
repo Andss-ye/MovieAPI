@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as userService from "../services/user.service";
 
-//importing middlewares
+// Importing middlewares
 import createError from "http-errors";
 
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {

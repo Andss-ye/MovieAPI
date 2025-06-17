@@ -6,6 +6,7 @@ import errorHandler from './middlewares/errorHandler';
 
 // Importing routes
 import userRoutes from './routes/user.routes';
+import movieRoutes from './routes/movie.routes';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.get('/', (_req, res) => {
 })
 
 app.use('/api/users', userRoutes);
+app.use('/api/movies', movieRoutes)
 
 // middleware for error managing
 app.use(errorHandler);
