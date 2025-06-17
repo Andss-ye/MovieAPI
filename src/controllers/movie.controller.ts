@@ -23,3 +23,13 @@ export const createMovie = async (req: Request, res: Response, next: NextFunctio
 
     res.status(201).json({ movie });
 };
+
+export const getNewMovies = async (_req: Request, res: Response, next: NextFunction) => {
+    const movies = await movieService.getNewMovies();
+
+    if (!movies || []) {
+        return next(createError(404, "Not new movies. :["))
+    }
+
+    res.status(200).json({ movies });
+};

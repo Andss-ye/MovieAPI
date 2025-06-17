@@ -56,3 +56,27 @@ export const getMovieByTitle = async (title: string) => {
     });
     return movies;
 }
+
+export const getNewMovies = async () => {
+    const threeWeeksAgo = new Date();
+    threeWeeksAgo.setDate(threeWeeksAgo.getDate() - 21);
+
+    const movies = await prisma.movie.findMany({
+        where: {
+            releaseDate: {
+                gte: threeWeeksAgo
+            }
+        },
+        include: {
+            categories: {
+                include: {
+                    category: true
+                }
+            }
+        },
+        orderBy: {
+            releaseDate: 'desc'
+        }
+    });
+    return movies;
+}
