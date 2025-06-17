@@ -1,17 +1,28 @@
-import express from 'express'
-import dotenv from 'dotenv'
+import express from 'express';
+import dotenv from 'dotenv';
 
-dotenv.config()
+// Importing middlewares
+import errorHandler from './middlewares/errorHandler';
+
+// Importing routes
+import userRoutes from './routes/user.routes';
+
+dotenv.config();
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
 app.get('/', (_req, res) => {
-    res.status(200).json({ message: "Hola movieAPI 🚀" })
+    res.status(200).json({ message: "Hola movieAPI 🚀" });
 })
 
-const PORT = process.env.PORT || 4000
+app.use('/api/users', userRoutes);
+
+// middleware for error managing
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`)
