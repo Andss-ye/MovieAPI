@@ -27,7 +27,7 @@ export const createMovie = async (req: Request, res: Response, next: NextFunctio
 export const getNewMovies = async (_req: Request, res: Response, next: NextFunction) => {
     const movies = await movieService.getNewMovies();
 
-    if (!movies || []) {
+    if (!movies || movies.length === 0) {
         return next(createError(404, "Not new movies. :["))
     }
 
@@ -53,4 +53,14 @@ export const markMovieAsWatched = async (req: Request, res: Response, next: Next
         }
         next(error);
     }
+};
+
+export const getUsersWithWatchedMovies = async (_req: Request, res: Response, next: NextFunction) => {
+    const usersWatchedMovies = await movieService.getUsersWithWatchedMovies();
+
+    if (!usersWatchedMovies || usersWatchedMovies.length === 0) {
+        return next(createError(404, 'No users found with watched movies'));
+    }
+
+    res.status(200).json({ usersWatchedMovies });
 };
