@@ -133,38 +133,3 @@ export const markMovieAsWatched = async (userId: number, movieId: number) => {
 
     return viewedMovie;
 };
-
-export const getUsersWithWatchedMovies = async () => {
-    const users = await prisma.user.findMany({
-        select: {
-            id: true,
-            name: true,
-            email: true,
-            viewed: {
-                select: {
-                    id: true,
-                    viewedAt: true,
-                    movie: {
-                        select: {
-                            id: true,
-                            title: true,
-                            releaseDate: true,
-                            categories: {
-                                select: {
-                                    category: {
-                                        select: {
-                                            id: true,
-                                            name: true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-    return users;
-};

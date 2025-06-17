@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser } from "../controllers/user.controller";
+import { createUser, getUsersWithWatchedMovies } from "../controllers/user.controller";
 
 // importing middleware
 import { validateSchema } from "../middlewares/zodValidator"
@@ -10,5 +10,6 @@ import { createUserSchema } from "../schemas/user.schemas";
 const router = Router();
 
 router.post("/create", validateSchema(createUserSchema), createUser as any);
+router.get("/watched", getUsersWithWatchedMovies as any);
 
 export default router;
