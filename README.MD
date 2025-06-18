@@ -78,7 +78,7 @@ CREATE TABLE watched_movies (
 ```
 
 ## 🚀 API REST en Heroku
-[URL de la API en Heroku](https://movie-api-by-andrew-eff439bc0461.herokuapp.com/api/)
+[URL de la API en Heroku](https://movie-api-by-andrew-eff439bc0461.herokuapp.com/api/docs)
 
 ## 📚 Documentación de la API
 
