@@ -9,7 +9,7 @@ export const swaggerSpec = swaggerJSDoc({
     },
     servers: [
       {
-        url: process.env.BASE_URL || "http://localhost:4000/",
+        url: process.env.BASE_URL || "http://localhost:4000/api",
       }
     ],
     tags: [
