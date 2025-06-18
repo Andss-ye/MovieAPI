@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./swagger";
 
 // Importing middlewares
 import errorHandler from './middlewares/errorHandler';
@@ -12,14 +14,18 @@ dotenv.config();
 
 const app = express();
 
+
 app.use(express.json());
 
 app.get('/', (_req, res) => {
     res.status(200).json({ message: "Hola movieAPI 🚀" });
 })
 
+
 app.use('/api/users', userRoutes);
 app.use('/api/movies', movieRoutes)
+
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // middleware for error managing
 app.use(errorHandler);
