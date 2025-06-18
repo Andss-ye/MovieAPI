@@ -17,6 +17,7 @@ erDiagram
         datetime created_at
     }
     MOVIES ||--o{ WATCHED_MOVIES : watched_by
+    MOVIES ||--o{ MOVIE_CATEGORIES : has
     MOVIES {
         int id PK
         string title
