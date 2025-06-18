@@ -3,7 +3,7 @@
 API REST para gestión de películas y usuarios, desarrollada con Node.js, Express y TypeScript.
 
 ## 📁 Repositorio
-[URL del repositorio](https://github.com/tu-usuario/MovieAPI)
+[URL del repositorio](https://github.com/Andss-ye/MovieAPI/tree/main)
 
 ## 🗄️ Modelo Relacional de la Base de Datos
 
@@ -78,12 +78,12 @@ CREATE TABLE watched_movies (
 ```
 
 ## 🚀 API REST en Heroku
-[URL de la API en Heroku]()
+[URL de la API en Heroku](https://movie-api-by-andrew-eff439bc0461.herokuapp.com/api/)
 
 ## 📚 Documentación de la API
 
 La documentación de la API está disponible en Swagger UI:
-- URL: `https:///api/docs`
+- URL: `https://movie-api-by-andrew-eff439bc0461.herokuapp.com/api/docs/`
 
 ### Endpoints Principales
 
